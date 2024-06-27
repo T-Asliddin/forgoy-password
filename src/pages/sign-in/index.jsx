@@ -54,9 +54,12 @@ const Index = () => {
               onChange={hendleChange}
               
             />
+            <div className=" flex justify-between ">
             <NavLink to={'sign-up'}>
               <p className=" text-blue-700 ">Register</p>
             </NavLink>
+            <button className=" text-blue-700 "> Forgot password ? </button>
+            </div>
             <Button  type="submit" variant="contained">
               Contained
             </Button>
