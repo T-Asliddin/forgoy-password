@@ -4,18 +4,18 @@ import Button from "@mui/material/Button";
 import { auth } from "@service";
 import { NavLink } from "react-router-dom";
 import { Snackbar } from "../../components";
- import { ForgotModal } from "../../components/modal";
+import { ForgotModal } from "../../components/modal";
 const Index = () => {
   const [form, setForm] = useState({});
   const [open, setOpen] = useState(false);
-   const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
+
 
   const hendleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(form);
@@ -23,36 +23,34 @@ const Index = () => {
       const response = await auth.sign_in(form);
       console.log(response);
       if (response.status === 200) {
-        setOpen(true)
+        setOpen(true);
       }
     } catch (error) {}
   };
 
-  const toggle=()=>{
-    setOpen(false)
-  }
+  const toggle = () => {
+    setOpen(false);
+  };
 
-  const forgot=()=>{
-    setModal(false)
-  }
+  const forgot = () => {
+    setModal(false);
+  };
 
   return (
     <>
-     <Snackbar  open={open} toggle={toggle}/> 
-     <ForgotModal modal ={modal} forgot={forgot} />
+      <Snackbar open={open} toggle={toggle} />
+      <ForgotModal modal={modal} forgot={forgot} />
       <div className="w-full h-screen flex items-center justify-center">
         <div className="w-[600px]  p-5">
           <h1 className="text-[50px] my-3 text-center ">Login</h1>
           <form onSubmit={handleSubmit} className=" flex flex-col gap-3 ">
-         
             <TextField
               fullWidth
               type="text"
-              label="Email"
+              placeholder="Email"
               id="email"
               name="email"
               onChange={hendleChange}
-              
             />
             <TextField
               fullWidth
@@ -61,22 +59,29 @@ const Index = () => {
               id="password"
               name="password"
               onChange={hendleChange}
-              
             />
             <div className=" flex justify-between ">
-            <NavLink to={'sign-up'}>
-              <p className=" text-blue-700 ">Register</p>
-            </NavLink>
-            <p onClick={()=>{setModal(true)}} className=" cursor-pointer text-blue-700 "> Forgot password ? </p>
+              <NavLink to={"sign-up"}>
+                <p className=" text-blue-700 ">Register</p>
+              </NavLink>
+              <p
+                onClick={() => {
+                  setModal(true);
+                }}
+                className=" cursor-pointer text-blue-700 "
+              >
+                {" "}
+                Forgot password ?{" "}
+              </p>
             </div>
-            <Button  type="submit" variant="contained">
+            <Button type="submit" variant="contained">
               Contained
             </Button>
           </form>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

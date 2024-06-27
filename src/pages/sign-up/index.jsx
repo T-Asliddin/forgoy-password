@@ -8,6 +8,7 @@ const Index = () => {
   const [form, setForm] = useState({});
   const [open, setOpen] = useState(false);
 
+
   const hendleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -15,12 +16,14 @@ const Index = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
+    // 0d205b50-bbe0-49d6-bbef-55d95867e2be
     try {
       const response = await auth.sign_up(form);
       if (response.status === 200) {
-        setOpen(true);
         localStorage.setItem("email", form.email);
+        console.log(response);
+        setOpen(true);
       }
     } catch (error) {}
   };

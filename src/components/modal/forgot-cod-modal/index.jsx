@@ -6,7 +6,8 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { auth } from "@service";
-import { ForgotCodModal } from "..";
+import { Snackbar } from "../..";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -19,35 +20,39 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ modal, forgot }) {
-  const [email, setEmail] = useState("");
-  const [openn ,setOpenn] =useState(false)
-
+export default function BasicModal({ openn, togglee }) {
+  const [form, setForm] = useState({});
+  const [open , setOpen]=useState(false)
+  const Heandlchange=(e)=>{
+    const {name , value} = e.target
+    setForm({...form , [name]:value})
+  }
 const handleSubmit = async (e) => {
     e.preventDefault();
-    const newemail={
-        "email": email
+  
+    const payload={
+        code:form.cod,
+        email:localStorage.getItem("email"),
+        new_password:form.password
     }
+    console.log(payload);
     try {
-      const response = await auth.forgot_password(newemail);
-      if (response.status===200) {
-        localStorage.setItem("email", email)
-        forgot()
-        setOpenn(true)
+      const response = await auth.verify_forgot_password(payload);
+      if (response.status==201) {
+        setOpen(true)
+        togglee()
       }
-      
-    } catch (error) {}
-   
+    } catch (error) {} 
   };
-  const togglee =()=>{
-    setOpenn(false)
-}
+  const toggle=()=>{
+    setOpen(false)
+  }
   return (
     <div>
-        <ForgotCodModal openn={openn} togglee={togglee}/>
+      <Snackbar open={open} toggle={toggle} />
       <Modal
-        open={modal}
-        onClose={forgot}
+        open={openn}
+        onClose={togglee}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -58,18 +63,25 @@ const handleSubmit = async (e) => {
             component="h2"
             className="text-center "
           >
-            Email kiriting
+            Parolni yangilash
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <TextField
                 fullWidth
                 type="text"
-                label="Email"
-                id="email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                label="Cod"
+                id="cod"
+                name="cod"
+                onChange={Heandlchange}
+              />
+              <TextField
+                fullWidth
+                type="text"
+                label="New password"
+                id="password"
+                name ="password"
+                onChange={Heandlchange}
               />
               <Button
                 type="submit"

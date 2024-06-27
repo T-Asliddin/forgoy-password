@@ -71,16 +71,21 @@ export default function Index(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const payload = {
       code: code,
       email: localStorage.getItem("email"),
     };
     try {
       const response = await auth.verify_code(payload);
+      console.log("xkcnvkd");
       if (response.status === 201) {
         props.toggle();
         setNotopen(true)
-        navigate("/");
+        setTimeout(()=>{
+          navigate("/");
+        },2000)
+        
       }
     } catch (error) {}
   };
@@ -115,7 +120,7 @@ export default function Index(props) {
               Enter Code
             </Typography>
             <Typography id="spring-modal-description" sx={{ mt: 2 }}>
-              <form onClick={handleSubmit} className="flex flex-col gap-5">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <TextField
                   fullWidth
                   type="text"
