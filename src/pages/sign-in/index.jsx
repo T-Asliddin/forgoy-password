@@ -4,9 +4,11 @@ import Button from "@mui/material/Button";
 import { auth } from "@service";
 import { NavLink } from "react-router-dom";
 import { Snackbar } from "../../components";
+ import { ForgotModal } from "../../components/modal";
 const Index = () => {
   const [form, setForm] = useState({});
   const [open, setOpen] = useState(false);
+   const [modal, setModal] = useState(false);
 
   const hendleChange = (e) => {
     const { name, value } = e.target;
@@ -16,6 +18,7 @@ const Index = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form);
     try {
       const response = await auth.sign_in(form);
       console.log(response);
@@ -24,13 +27,19 @@ const Index = () => {
       }
     } catch (error) {}
   };
+
   const toggle=()=>{
     setOpen(false)
+  }
+
+  const forgot=()=>{
+    setModal(false)
   }
 
   return (
     <>
      <Snackbar  open={open} toggle={toggle}/> 
+     <ForgotModal modal ={modal} forgot={forgot} />
       <div className="w-full h-screen flex items-center justify-center">
         <div className="w-[600px]  p-5">
           <h1 className="text-[50px] my-3 text-center ">Login</h1>
@@ -58,7 +67,7 @@ const Index = () => {
             <NavLink to={'sign-up'}>
               <p className=" text-blue-700 ">Register</p>
             </NavLink>
-            <button className=" text-blue-700 "> Forgot password ? </button>
+            <p onClick={()=>{setModal(true)}} className=" cursor-pointer text-blue-700 "> Forgot password ? </p>
             </div>
             <Button  type="submit" variant="contained">
               Contained

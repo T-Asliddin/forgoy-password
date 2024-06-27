@@ -3,6 +3,8 @@ const auth = {
     sign_in: (data)=> http.post("/auth/login",data),
     sign_up: (data)=> http.post("/auth/register", data),
     verify_code: (data)=> http.post("/auth/verify", data),
-    forget_password: (data)=>http.post("/auth/verify-forgot-password"),
+    verify_forgot_password: (data)=>http.post("/auth/verify-forgot-password",data),
+    forgot_password: (data)=>http.post("/auth/forgot-password",data),
+
 }
 export default auth

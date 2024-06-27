@@ -2,7 +2,7 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { auth } from "@service";
-import { SignUPModal } from "../../components";
+import { SignUPModal } from "../../components/modal";
 import { Snackbar } from "../../components";
 const Index = () => {
   const [form, setForm] = useState({});
