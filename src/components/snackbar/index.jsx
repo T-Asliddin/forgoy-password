@@ -23,7 +23,7 @@ export default function CustomizedSnackbars({open ,toggle}) {
           onClose={toggle}
           severity="success"
           variant="filled"
-          sx={{ width: '100%' }}
+          sx={{width: '100%' }}
         >
           This is a success Alert inside a Snackbar!
         </Alert>

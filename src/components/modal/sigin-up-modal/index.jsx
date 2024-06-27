@@ -109,7 +109,7 @@ export default function Index(props) {
           },
         }}
       >
-        <Fade in={open}>
+        <Fade in={props.open}>
           <Box sx={style}>
             <Typography
               id="spring-modal-title"
